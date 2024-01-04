@@ -23,8 +23,8 @@ docker compose up -d
 ```
 
 ## Endpoint
-`/` to check wether the server and db is running well
-`/v1/recrods` getting the records data, accept json filter with paramaters : `startDate`, `endDate`, `minCount`, `maxCount`. example : 
+- `/` to check wether the server and db is running well
+- `/v1/recrods` getting the records data, accept json filter with paramaters : `startDate`, `endDate`, `minCount`, `maxCount`. example : 
 ```
 {
     "startDate": "2024-01-02",
