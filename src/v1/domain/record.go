@@ -14,8 +14,8 @@ type (
 		TotalMarks int64     `json:"totalMarks,omitempty" bson:"totalMarks"`
 	}
 	FetchRecordRequest struct {
-		StartDate string `json:"startDate" validate:""`
-		EndDate   string `json:"endDate" validate:""`
+		StartDate string `json:"startDate" validate:"datetime=2006-01-02"`
+		EndDate   string `json:"endDate" validate:"datetime=2006-01-02"`
 		MinCount  int64  `json:"minCount" validate:"number"`
 		MaxCount  int64  `json:"maxCount" validate:"number"`
 	}

@@ -24,11 +24,11 @@ func (h *httpOrderHandler) Get(c echo.Context) (err error) {
 	var request domain.FetchRecordRequest
 	err = c.Bind(&request)
 	if err != nil {
-		return c.JSON(http.StatusUnprocessableEntity, err.Error())
+		return c.JSON(http.StatusUnprocessableEntity, domain.GenerateResponseError(domain.ErrBadRequest, "wrong datatype", err))
 	}
 
 	if err = c.Validate(request); err != nil {
-		return c.JSON(http.StatusBadRequest, err.Error())
+		return c.JSON(http.StatusBadRequest, domain.GenerateResponseError(domain.ErrBadRequest, "validation failed", err))
 	}
 
 	resp, err := h.Usecase.GetAll(c.Request().Context(), request)

@@ -26,7 +26,7 @@ func InitConfig() AppConfig {
 	return AppConfig{
 		ContextTimeout: timeOut,
 		ServerPort:     getEnv("ServerAddress", "8080"),
-		DbHost:         getEnv("DB_HOST", "mongodb://user:pass@mongo:27018/mezink"),
+		DbHost:         getEnv("DB_HOST", "mongodb://localhost:27018/mezink"),
 		DbPort:         getEnv("DB_PORT", "27018"),
 		DbUser:         getEnv("DB_USER", "user"),
 		DbPass:         getEnv("DB_PASS", "pass"),

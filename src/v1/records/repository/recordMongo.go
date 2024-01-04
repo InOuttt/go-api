@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"log"
 	"time"
 
 	"github.com/inouttt/test-go-mezink/pkg/db"
@@ -34,7 +35,7 @@ func (rm *recordMongo) GetAll(ctx context.Context, req domain.FetchRecordRequest
 		qfilter["createdAt"] = bson.M{"$gte": primitive.NewDateTimeFromTime(sd)}
 	}
 	if req.EndDate != "" {
-		ed, err := time.Parse("2006-01-02", req.EndDate)
+		ed, err := time.Parse("2006-01-02T15:04:05", req.EndDate+"T23:59:59")
 		if err != nil {
 			return nil, err
 		}
@@ -46,6 +47,9 @@ func (rm *recordMongo) GetAll(ctx context.Context, req domain.FetchRecordRequest
 	}
 	if req.MaxCount != 0 {
 		qfilter["totalMarks"] = bson.M{"$lte": req.MaxCount}
+	}
+	pFilter := bson.M{
+		"$match": qfilter,
 	}
 
 	// pipeline $project
@@ -60,12 +64,14 @@ func (rm *recordMongo) GetAll(ctx context.Context, req domain.FetchRecordRequest
 		},
 	}
 
-	data, err := rm.DB.Client.Database(rm.DB.DBName).Collection(RecordCollection).Aggregate(ctxTo, bson.A{pProject, qfilter})
+	data, err := rm.DB.Client.Database(rm.DB.DBName).Collection(RecordCollection).Aggregate(ctxTo, bson.A{pProject, pFilter})
 	if err != nil {
+		log.Println("error on fetch data, ", err)
 		return
 	}
 
-	if data.All(ctx, &res); err != nil {
+	if err = data.All(ctx, &res); err != nil {
+		log.Println("error on fetch data, ", err)
 		return
 	}
 
