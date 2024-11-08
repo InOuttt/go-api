@@ -1,9 +1,9 @@
-# mezink test
+# go api boilerplate
 creating simple fetch data from db
 - create a Go app to fetch data from db with given data type 
 - dockerize app, server, db
 - seed the db with json file in /doc/mongo_seed
-- post man doc is in /doc/mezink.postman_collection.json
+- post man doc is in /doc/example.postman_collection.json
 
 ## Installation
 Required Docker with docker compose enabled
@@ -11,14 +11,14 @@ Required Docker with docker compose enabled
 Clone the repository
 
 ```sh
-git clone git@github.com:InOuttt/test-go-mezink.git
+git clone git@github.com:InOuttt/go-api.git
 ```
 
 
 Install the dependencies and devDependencies and start the server.
 
 ```sh
-cd test-go-mezink
+cd go-api
 docker compose up -d
 ```
 
